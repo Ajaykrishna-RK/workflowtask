@@ -1,12 +1,20 @@
-import './App.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { WorkflowProvider } from './context/WorkflowContext';
+import WorkflowList from './pages/WorkflowList';
+import WorkflowBuilder from './pages/WorkflowBuilder';
+import './App.css';
 
 function App() {
-
   return (
-   <h1 className="text-3xl text-red-900 font-bold underline">
-    Hello world!
-  </h1>
-  )
+    <WorkflowProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<WorkflowList />} />
+          <Route path="/workflow" element={<WorkflowBuilder />} />
+        </Routes>
+      </BrowserRouter>
+    </WorkflowProvider>
+  );
 }
 
-export default App
+export default App;
