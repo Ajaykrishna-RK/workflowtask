@@ -7,9 +7,9 @@ import ConditionFields from "./fields/ConditionFields";
 import WaitTimerFields from "./fields/WaitTimerFields";
 import FollowUserFields from "./fields/FollowUserFields";
 import StartTriggerFields from "./fields/StartTriggerFields";
+import Button from "../ui/Button";
 
 // field components
-
 
 export default function ConfigurationPanel() {
   const { state, dispatch } = useWorkflow();
@@ -28,13 +28,19 @@ export default function ConfigurationPanel() {
   if (!selectedNode) {
     return (
       <div className="w-80 bg-gray-800 text-white p-4 h-full flex items-center justify-center">
-        <p className="text-gray-400 text-center">Select a node to configure it</p>
+        <p className="text-gray-400 text-center">
+          Select a node to configure it
+        </p>
       </div>
     );
   }
 
   // common update logic
-  const updateConfig = (field: keyof NodeConfig, value: any, errorMsg?: string) => {
+  const updateConfig = (
+    field: keyof NodeConfig,
+    value: any,
+    errorMsg?: string
+  ) => {
     const newConfig = { ...config, [field]: value };
     setConfig(newConfig);
 
@@ -78,12 +84,12 @@ export default function ConfigurationPanel() {
     <div className="w-80 bg-gray-800 text-white p-4 h-full overflow-y-auto">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold">Configure Node</h2>
-        <button
+        <Button
           onClick={() => dispatch({ type: "SELECT_NODE", payload: null })}
-          className="text-gray-400 hover:text-white"
         >
+          {" "}
           <FaTimes />
-        </button>
+        </Button>
       </div>
 
       <div className="mb-4 pb-4 border-b border-gray-700">

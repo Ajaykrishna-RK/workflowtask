@@ -29,17 +29,15 @@ export default function WorkflowCanvas() {
 
   const onNodesChange = useCallback(
     (changes: any) => {
-         
       dispatch({ type: "ON_NODES_CHANGE", payload: changes });
     },
- 
+
     [dispatch]
   );
 
   const onEdgesChange = useCallback(
     (changes: any) => {
       dispatch({ type: "ON_EDGES_CHANGE", payload: changes });
-  
     },
     [dispatch]
   );
@@ -49,7 +47,7 @@ export default function WorkflowCanvas() {
       // Validate connection before adding
       const newEdges = addEdge(params, edges);
       const validationErrors = validateWorkflow(nodes, newEdges);
-   
+
       if (validationErrors.length > 0) {
         dispatch({ type: "SET_ERRORS", payload: validationErrors });
         return;
@@ -110,7 +108,6 @@ export default function WorkflowCanvas() {
     [screenToFlowPosition, dispatch, nodes]
   );
 
-
   // Listen for addNode events from Sidebar
   useEffect(() => {
     const handleAddNode = (event: CustomEvent) => {
@@ -156,7 +153,7 @@ export default function WorkflowCanvas() {
         className="bg-gray-900"
       >
         <Background />
-        <Controls />
+
         <MiniMap
           nodeColor={(node) => {
             const colors: Record<string, string> = {

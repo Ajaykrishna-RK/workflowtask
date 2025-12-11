@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { FaCheckCircle, FaExclamationCircle, FaTimes } from 'react-icons/fa';
 import type { WorkflowValidationError } from '../types/workflow';
+import Button from './ui/Button';
 
 interface ToastProps {
   message: string;
@@ -34,12 +35,8 @@ export function Toast({ message, type, onClose, duration = 3000 }: ToastProps) {
     <div className={`${colorClass} text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 min-w-[300px] max-w-md animate-slide-in`}>
       <Icon className="text-xl flex-shrink-0" />
       <p className="flex-1">{message}</p>
-      <button
-        onClick={onClose}
-        className="flex-shrink-0 hover:opacity-80 transition-opacity"
-      >
-        <FaTimes />
-      </button>
+      <Button onClick={onClose}> <FaTimes /></Button>
+     
     </div>
   );
 }
