@@ -2,7 +2,7 @@ import { useCallback, useEffect } from "react";
 import {
   ReactFlow,
   Background,
-  Controls,
+
   MiniMap,
   addEdge,
   useReactFlow,
@@ -44,7 +44,7 @@ export default function WorkflowCanvas() {
 
   const onConnect = useCallback(
     (params: Connection) => {
-      // Validate connection before adding
+
       const newEdges = addEdge(params, edges);
       const validationErrors = validateWorkflow(nodes, newEdges);
 
@@ -77,7 +77,7 @@ export default function WorkflowCanvas() {
         y: event.clientY,
       });
 
-      // Check if we're adding a start trigger
+
       if (type === "startTrigger") {
         const hasStartTrigger = nodes.some(
           (node) => node.type === "startTrigger"
@@ -108,12 +108,12 @@ export default function WorkflowCanvas() {
     [screenToFlowPosition, dispatch, nodes]
   );
 
-  // Listen for addNode events from Sidebar
+
   useEffect(() => {
     const handleAddNode = (event: CustomEvent) => {
       const newNode = event.detail as WorkflowNode;
 
-      // Check if we're adding a start trigger
+   
       if (newNode.type === "startTrigger") {
         const hasStartTrigger = nodes.some(
           (node) => node.type === "startTrigger"

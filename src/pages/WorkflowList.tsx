@@ -74,7 +74,7 @@ export default function WorkflowList() {
         </div>
       </div>
 
-      {/* Delete Modal */}
+   
       <Modal
         open={!!showDeleteModal}
         title="Delete Workflow"

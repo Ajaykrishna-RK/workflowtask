@@ -7,9 +7,9 @@ import Sidebar from "../components/Sidebar";
 import ConfigurationPanel from "../components/configurationpanel/ConfigurationPanel";
 import { ToastContainer } from "../components/Toast";
 import { validateWorkflow } from "../utils/validation";
-import { FaSave, FaHome, FaPlay } from "react-icons/fa";
 import Modal from "../components/ui/Modal";
 import Button from "../components/ui/Button";
+import BuilderHeader from "../components/workflows/BuilderHeader";
 
 export default function WorkflowBuilder() {
   const navigate = useNavigate();
@@ -18,8 +18,10 @@ export default function WorkflowBuilder() {
   const [workflowName, setWorkflowName] = useState("Untitled Workflow");
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [saveErrors, setSaveErrors] = useState<string[]>([]);
+  const [showJsonModal, setShowJsonModal] = useState(false);
+  const [jsonPreview, setJsonPreview] = useState("");
 
-  // Load workflow name when editing
+
   useEffect(() => {
     if (currentWorkflowId) {
       const workflow = workflows.find((w) => w.id === currentWorkflowId);
@@ -31,7 +33,7 @@ export default function WorkflowBuilder() {
     }
   }, [currentWorkflowId, workflows]);
 
-  // Add Start Trigger button handler
+
   const handleAddStartTrigger = () => {
     const hasStartTrigger = nodes.some((node) => node.type === "startTrigger");
     if (hasStartTrigger) {
@@ -77,7 +79,6 @@ export default function WorkflowBuilder() {
     setShowSaveModal(false);
     setSaveErrors([]);
 
-    // Show success message
     dispatch({
       type: "SET_ERRORS",
       payload: [{ type: "warning", message: "Workflow saved successfully!" }],
@@ -104,13 +105,19 @@ export default function WorkflowBuilder() {
       edges,
     };
 
-    const dataStr = JSON.stringify(workflowData, null, 2);
-    const dataBlob = new Blob([dataStr], { type: "application/json" });
-    const url = URL.createObjectURL(dataBlob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `${workflowName.replace(/\s+/g, "-")}.json`;
-    link.click();
+    setJsonPreview(JSON.stringify(workflowData, null, 2));
+    setShowJsonModal(true);
+  };
+
+  const downloadJson = () => {
+    const blob = new Blob([jsonPreview], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+
+    a.href = url;
+    a.download = `${workflowName.replace(/\s+/g, "-")}.json`;
+    a.click();
+
     URL.revokeObjectURL(url);
   };
 
@@ -123,42 +130,14 @@ export default function WorkflowBuilder() {
     <ReactFlowProvider>
       <div className="h-screen flex flex-col bg-gray-900 text-white">
         {/* Header */}
-        <div className="bg-gray-800 border-b border-gray-700 px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button
-              onClick={() => navigate("/")}
-              leftIcon={<FaHome className="text-xl" />}
-            ></Button>
-
-            <input
-              type="text"
-              value={workflowName}
-              onChange={(e) => setWorkflowName(e.target.value)}
-              className="bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Workflow name"
-            />
-          </div>
-
-          <div className="flex items-center gap-3">
-            <Button
-              variant="green"
-              onClick={handleAddStartTrigger}
-              leftIcon={<FaPlay />}
-            >
-              {" "}
-              Add Start Trigger{" "}
-            </Button>
-            <Button onClick={handleExport}> Export JSON </Button>
-            <Button
-              variant="primary"
-              onClick={handleExport}
-              leftIcon={<FaSave />}
-            >
-              {" "}
-              Save{" "}
-            </Button>
-          </div>
-        </div>
+        <BuilderHeader
+          workflowName={workflowName}
+          setWorkflowName={setWorkflowName}
+          onHome={() => navigate("/")}
+          onAddStartTrigger={handleAddStartTrigger}
+          onExport={handleExport}
+          onSave={handleSave}
+        />
 
         {/* Main Content */}
         <div className="flex-1 flex overflow-hidden">
@@ -192,6 +171,27 @@ export default function WorkflowBuilder() {
               </li>
             ))}
           </ul>
+        </Modal>
+
+        {/* Export JSON Modal */}
+        <Modal
+          open={showJsonModal}
+          title="Export Workflow JSON"
+          onCancel={() => setShowJsonModal(false)}
+        >
+          <div className="mb-4 text-gray-300">
+            <p className="text-sm mb-2">
+              Review the JSON below before downloading:
+            </p>
+          </div>
+
+          <pre className="bg-gray-900 border border-gray-700 rounded p-3 text-sm text-green-300 max-h-64 overflow-auto mb-4">
+            {jsonPreview}
+          </pre>
+
+          <Button onClick={downloadJson} variant="green" fullWidth>
+            Download JSON
+          </Button>
         </Modal>
       </div>
     </ReactFlowProvider>

@@ -8,6 +8,7 @@ export function validateWorkflow(
 ): WorkflowValidationError[] {
   const errors: WorkflowValidationError[] = [];
 
+
   if (nodes.length === 0) {
     errors.push({
       type: 'error',
@@ -124,7 +125,6 @@ export function validateWorkflow(
     }
   });
 
-  // Validate node configurations
   nodes.forEach((node) => {
     const config = node.data.config;
     

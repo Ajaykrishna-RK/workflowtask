@@ -9,7 +9,6 @@ import FollowUserFields from "./fields/FollowUserFields";
 import StartTriggerFields from "./fields/StartTriggerFields";
 import Button from "../ui/Button";
 
-// field components
 
 export default function ConfigurationPanel() {
   const { state, dispatch } = useWorkflow();
@@ -35,7 +34,6 @@ export default function ConfigurationPanel() {
     );
   }
 
-  // common update logic
   const updateConfig = (
     field: keyof NodeConfig,
     value: any,
