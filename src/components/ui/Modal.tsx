@@ -5,11 +5,11 @@ import Button from "./Button";
 interface ModalProps {
   open: boolean;
   title?: string;
-  message?: string; // message optional now
-  children?: ReactNode; // NEW: allows custom content like error lists
+  message?: string; 
+  children?: ReactNode; 
   confirmLabel?: string;
   cancelLabel?: string;
-  onConfirm?: () => void; // optional
+  onConfirm?: () => void; 
   onCancel: () => void;
 }
 
@@ -19,7 +19,7 @@ export default function Modal({
   message,
   children,
   confirmLabel,
-  cancelLabel,
+
   onConfirm,
   onCancel,
 }: ModalProps) {
@@ -38,12 +38,11 @@ export default function Modal({
           </div>
         )}
 
-        {/* Default message OR custom content */}
+ 
         {children
           ? children
           : message && <p className="text-gray-400 mb-6">{message}</p>}
 
-        {/* Buttons: optional confirm button */}
         <div className="justify-end items-end flex">
           {confirmLabel && onConfirm && (
             <Button
@@ -54,18 +53,6 @@ export default function Modal({
             </Button>
           )}
 
-          {/* {cancelLabel && (
-            <Button onClick={onCancel} className="w-full mt-2" variant="primary">
-              {cancelLabel}
-            </Button>
-          )}
-
-         
-          {!confirmLabel && !cancelLabel && (
-            <Button onClick={onCancel} className="w-full mt-2" variant="primary">
-              OK
-            </Button>
-          )} */}
         </div>
       </div>
     </div>
