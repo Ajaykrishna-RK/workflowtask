@@ -21,7 +21,6 @@ export default function WorkflowBuilder() {
   const [showJsonModal, setShowJsonModal] = useState(false);
   const [jsonPreview, setJsonPreview] = useState("");
 
-
   useEffect(() => {
     if (currentWorkflowId) {
       const workflow = workflows.find((w) => w.id === currentWorkflowId);
@@ -32,7 +31,6 @@ export default function WorkflowBuilder() {
       setWorkflowName("Untitled Workflow");
     }
   }, [currentWorkflowId, workflows]);
-
 
   const handleAddStartTrigger = () => {
     const hasStartTrigger = nodes.some((node) => node.type === "startTrigger");
@@ -150,6 +148,22 @@ export default function WorkflowBuilder() {
 
         {/* Toast Notifications */}
         <ToastContainer errors={errors} onClose={handleCloseError} />
+
+        {/* Delete Node Modal */}
+        <Modal
+          open={!!state.nodeToDelete}
+          title="Delete Node"
+          message={`Are you sure you want to delete "${state.nodeToDelete?.data.label}"?`}
+          confirmLabel="Delete"
+          cancelLabel="Cancel"
+          onConfirm={() => {
+            dispatch({ type: "DELETE_NODE", payload: state.nodeToDelete!.id });
+            dispatch({ type: "CONFIRM_DELETE_NODE", payload: null });
+          }}
+          onCancel={() =>
+            dispatch({ type: "CONFIRM_DELETE_NODE", payload: null })
+          }
+        />
 
         {/* Save Error Modal */}
         <Modal

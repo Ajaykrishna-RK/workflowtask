@@ -8,6 +8,7 @@ export interface WorkflowState {
   workflows: Workflow[];
   currentWorkflowId: string | null;
   errors: WorkflowValidationError[];
+   nodeToDelete: WorkflowNode | null;
 }
 
 export type WorkflowAction =
@@ -25,7 +26,8 @@ export type WorkflowAction =
   | { type: "LOAD_WORKFLOWS" }
   | { type: "DELETE_WORKFLOW"; payload: string }
   | { type: "RESET_WORKFLOW" }
-  | { type: "SET_ERRORS"; payload: WorkflowValidationError[] };
+  | { type: "SET_ERRORS"; payload: WorkflowValidationError[] }
+  | { type: "CONFIRM_DELETE_NODE"; payload: WorkflowNode | null };
 
 export const initialState: WorkflowState = {
   nodes: [],
@@ -34,4 +36,5 @@ export const initialState: WorkflowState = {
   workflows: [],
   currentWorkflowId: null,
   errors: [],
+  nodeToDelete:null
 };
