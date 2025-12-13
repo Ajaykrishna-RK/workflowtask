@@ -35,7 +35,7 @@ export function Toast({ message, type, onClose, duration = 3000 }: ToastProps) {
     <div className={`${colorClass} text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 min-w-[300px] max-w-md animate-slide-in`}>
       <Icon className="text-xl flex-shrink-0" />
       <p className="flex-1">{message}</p>
-      <Button variant='danger' onClick={onClose}> <FaTimes /></Button>
+      <Button variant='ghost' onClick={onClose}> <FaTimes /></Button>
      
     </div>
   );
@@ -55,7 +55,7 @@ export function ToastContainer({ errors, onClose }: ToastContainerProps) {
         <Toast
           key={index}
           message={error.message}
-          type={error.type === 'error' ? 'error' : 'warning'}
+          type={error.type === 'error' ? 'error' : 'success'}
           onClose={() => onClose(index)}
         />
       ))}

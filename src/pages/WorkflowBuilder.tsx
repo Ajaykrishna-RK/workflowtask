@@ -16,8 +16,7 @@ export default function WorkflowBuilder() {
   const { state, dispatch } = useWorkflow();
   const { nodes, edges, errors, currentWorkflowId, workflows } = state;
   const [workflowName, setWorkflowName] = useState("Untitled Workflow");
-  const [showSaveModal, setShowSaveModal] = useState(false);
-  const [saveErrors, setSaveErrors] = useState<string[]>([]);
+
   const [showJsonModal, setShowJsonModal] = useState(false);
   const [jsonPreview, setJsonPreview] = useState("");
 
@@ -61,21 +60,18 @@ export default function WorkflowBuilder() {
     const validationErrors = validateWorkflow(nodes, edges);
 
     if (validationErrors.length > 0) {
-      setSaveErrors(validationErrors.map((e) => e.message));
-      setShowSaveModal(true);
+ 
       dispatch({ type: "SET_ERRORS", payload: validationErrors });
       return;
     }
 
     if (!workflowName.trim()) {
-      setSaveErrors(["Workflow name is required"]);
-      setShowSaveModal(true);
+
       return;
     }
 
     dispatch({ type: "SAVE_WORKFLOW", payload: { name: workflowName.trim() } });
-    setShowSaveModal(false);
-    setSaveErrors([]);
+
 
     dispatch({
       type: "SET_ERRORS",
@@ -91,8 +87,7 @@ export default function WorkflowBuilder() {
     const validationErrors = validateWorkflow(nodes, edges);
 
     if (validationErrors.length > 0) {
-      setSaveErrors(validationErrors.map((e) => e.message));
-      setShowSaveModal(true);
+
       dispatch({ type: "SET_ERRORS", payload: validationErrors });
       return;
     }
@@ -164,28 +159,6 @@ export default function WorkflowBuilder() {
             dispatch({ type: "CONFIRM_DELETE_NODE", payload: null })
           }
         />
-
-        {/* Save Error Modal */}
-        <Modal
-          open={showSaveModal}
-          title="Cannot Save Workflow"
-          onCancel={() => {
-            setShowSaveModal(false);
-            setSaveErrors([]);
-          }}
-        >
-          <p className="text-gray-400 mb-4">
-            Please fix the following errors before saving:
-          </p>
-
-          <ul className="list-disc list-inside text-red-400 mb-6 space-y-1">
-            {saveErrors.map((err, idx) => (
-              <li key={idx} className="text-sm">
-                {err}
-              </li>
-            ))}
-          </ul>
-        </Modal>
 
         {/* Export JSON Modal */}
         <Modal

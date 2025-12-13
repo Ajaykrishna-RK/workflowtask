@@ -1,4 +1,4 @@
-// src/context/workflow/workflowHelpers.ts
+
 import type { WorkflowState, WorkflowAction } from "./WorkflowTypes";
 import type { WorkflowNode, Workflow } from "../../types/workflow";
 

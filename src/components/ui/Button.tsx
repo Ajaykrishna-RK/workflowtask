@@ -17,7 +17,7 @@ const variantClasses: Record<Variant, string> = {
   primary: "bg-blue-600 hover:bg-blue-700 text-white",
   secondary: "bg-gray-500 hover:bg-gray-600 text-white",
   danger: "bg-red-600 hover:bg-red-700 text-white",
-  ghost: "bg-transparent hover:bg-gray-700 text-white border border-gray-600",
+  ghost: "bg-transparent  text-white ",
 
   // ⭐ New Green variant
   green: "bg-green-600 hover:bg-green-700 text-white",

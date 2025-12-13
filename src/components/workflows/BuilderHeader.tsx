@@ -35,7 +35,7 @@ export default function BuilderHeader({
           Add Start Trigger
         </Button>
 
-        <Button onClick={onExport}>Export JSON</Button>
+        <Button className="border border-gray-600" onClick={onExport}>Export JSON</Button>
 
         <Button variant="primary" onClick={onSave} leftIcon={<FaSave />}>
           Save

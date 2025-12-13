@@ -1,4 +1,4 @@
-// components/workflows/WorkflowListHeader.tsx
+
 import { FaPlus } from "react-icons/fa";
 import Button from "../ui/Button";
 
@@ -14,7 +14,7 @@ export default function WorkflowListHeader({
       <Button
       leftIcon={ <FaPlus />}
         onClick={onCreate}
-        // className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg flex items-center gap-2 transition-colors"
+       className="border border-gray-600"
       >
        
         Create New Workflow

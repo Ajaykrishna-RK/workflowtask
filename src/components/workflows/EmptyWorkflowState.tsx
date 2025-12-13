@@ -1,4 +1,3 @@
-// components/workflows/EmptyWorkflowState.tsx
 import { FaPlus } from "react-icons/fa";
 import Button from "../ui/Button";
 

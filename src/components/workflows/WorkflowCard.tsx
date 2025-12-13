@@ -1,4 +1,4 @@
-// components/workflows/WorkflowCard.tsx
+
 import { FaEdit, FaTrash, FaDownload } from "react-icons/fa";
 import type { Workflow } from "../../types/workflow";
 import Button from "../ui/Button";
@@ -32,9 +32,9 @@ export default function WorkflowCard({
       </p>
 
       <div className="flex gap-2">
-        <Button  onClick={() => onEdit(workflow)} leftIcon={<FaEdit />}  >Edit</Button>
+        <Button className="border border-gray-600"  onClick={() => onEdit(workflow)} leftIcon={<FaEdit />}  >Edit</Button>
       
-<Button  onClick={() => onExport(workflow)} leftIcon={<FaDownload />}> Export </Button>
+<Button className="border border-gray-600"  onClick={() => onExport(workflow)} leftIcon={<FaDownload />}> Export </Button>
      
 <Button  variant="danger"   onClick={() => onDelete(workflow)} leftIcon={  <FaTrash />}> Delete </Button>
      
