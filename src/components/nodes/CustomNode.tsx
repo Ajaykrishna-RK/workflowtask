@@ -51,9 +51,12 @@ export default function CustomNode({
     });
   };
 
-  const handleDeleteClick = (e: React.MouseEvent) => {
+ const handleDeleteClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setShowDeleteModal(true);
+    dispatch({
+      type: "CONFIRM_DELETE_NODE",
+      payload: { id, data, type } as WorkflowNode,
+    });
   };
 
   return (
@@ -85,7 +88,7 @@ export default function CustomNode({
 
       <Handle type="source" position={Position.Bottom} className="w-3 h-3" />
 
-      {/* 🔥 Reusable Modal for deleting the node */}
+    
       <Modal
         open={showDeleteModal}
         title="Delete Node"

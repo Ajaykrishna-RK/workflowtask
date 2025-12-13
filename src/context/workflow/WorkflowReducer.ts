@@ -108,6 +108,8 @@ export function workflowReducer(
             : state.currentWorkflowId,
       };
     }
+    case "CONFIRM_DELETE_NODE":
+      return { ...state, nodeToDelete: action.payload };
 
     case "RESET_WORKFLOW":
       return {
