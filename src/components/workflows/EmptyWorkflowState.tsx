@@ -1,7 +1,11 @@
 import { FaPlus } from "react-icons/fa";
 import Button from "../ui/Button";
 
-export default function EmptyWorkflowState({ onCreate }: { onCreate: () => void }) {
+export default function EmptyWorkflowState({
+  onCreate,
+}: {
+  onCreate: () => void;
+}) {
   return (
     <div className="bg-gray-800 rounded-lg p-12 text-center">
       <div className="max-w-md mx-auto">
@@ -13,7 +17,8 @@ export default function EmptyWorkflowState({ onCreate }: { onCreate: () => void 
 
         <Button
           onClick={onCreate}
-          className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg inline-flex items-center gap-2 transition-colors"
+          variant="ghost"
+          className="border border-gray-600 mx-auto"
         >
           <FaPlus />
           Create Your First Workflow
